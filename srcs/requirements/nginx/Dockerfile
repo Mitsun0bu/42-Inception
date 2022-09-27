@@ -1,12 +1,12 @@
 FROM	debian:buster
 
-# SYSTEM UPDATE AND DEPENDENCIES
+# UPDATE & UPGRADE THE SYSTEM
 RUN		apt-get update -y && apt-get upgrade -y
 
-# NGINX INSTALLATION
+# INSTALL NGINX
 RUN		apt-get install -y nginx
 
-# CONFIGURATIONS
+# CONFIGURE NGINX
 COPY	./conf/nginx.conf /etc/nginx/sites-available/llethuil.42.fr.conf
 RUN		ln -s /etc/nginx/sites-available/llethuil.42.fr.conf /etc/nginx/sites-enabled/llethuil.42.fr.conf
 
