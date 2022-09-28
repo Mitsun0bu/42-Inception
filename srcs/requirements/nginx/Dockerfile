@@ -1,7 +1,8 @@
 FROM	debian:buster
 
 # UPDATE & UPGRADE THE SYSTEM
-RUN		apt-get update -y && apt-get upgrade -y
+RUN		apt-get update -y \
+&&		apt-get upgrade -y
 
 # INSTALL NGINX
 RUN		apt-get install -y nginx

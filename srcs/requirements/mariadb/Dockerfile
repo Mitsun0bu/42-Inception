@@ -14,9 +14,9 @@ RUN		apt-get install -y mariadb-server
 # CREATE THE WORDRPRESS DATABASE
 RUN		service mysql start \
 &&		mysql -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;" \
-&&		mysql -e "alter user 'root'@'localhost' identified by '$MYSQL_ROOT_PASSWORD';" \
-&&		mysql -e "grant all privileges on $MYSQL_DATABASE.* to '$MYSQL_USER'@'%' identified by '$MYSQL_PASSWORD';" \
-&&		mysql -e "flush privileges;"
+&&		mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" \
+&&		mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" \
+&&		mysql -e "FLUSH PRIVILEGES;"
 
 # PORTS
 EXPOSE	3306

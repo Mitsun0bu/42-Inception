@@ -1,0 +1,89 @@
+version: "3.9"
+name: inception
+
+services:
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    build:
+      context: ./requirements/mariadb
+      args:
+        - MYSQL_ROOT_PASSWORD
+        - MYSQL_DATABASE
+        - MYSQL_USER
+        - MYSQL_PASSWORD
+    init: true
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - inception
+    restart: on-failure
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build:
+      context: ./requirements/wordpress
+      args:
+        - MYSQL_DATABASE
+        - MYSQL_USER
+        - MYSQL_PASSWORD
+        - MYSQL_HOST
+    env_file:
+      - .env
+    volumes:
+      - site:/var/www/html
+    networks:
+      - inception
+    restart: on-failure
+    depends_on:
+      - mariadb
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    build:
+      context: ./requirements/nginx
+    init: true
+    volumes:
+      - site:/var/www/html
+    networks:
+      - inception
+    ports:
+      - "443:443"
+    restart: on-failure
+    depends_on:
+      - wordpress
+      - adminer
+    secrets:
+      - inception_ssl.crt
+      - inception_ssl.key
+
+volumes:
+  db:
+    name: db
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/$USER/data/db
+      o: bind
+
+  site:
+    name: site
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/$USER/data/site
+      o: bind
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
+
+secrets:
+    inception_ssl.crt:
+      file: ./requirements/nginx/conf/inception_ssl.crt
+    inception_ssl.key:
+      file: ./requirements/nginx/conf/inception_ssl.key
