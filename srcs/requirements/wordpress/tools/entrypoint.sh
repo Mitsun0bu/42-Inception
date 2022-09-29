@@ -13,4 +13,4 @@ then
 fi
 
 # LAUNCH PHP-FPM
-php-fpm7.3 -F
+php-fpm7.4 -F
