@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 name: inception
 
 services:
@@ -55,10 +55,9 @@ services:
     restart: on-failure
     depends_on:
       - wordpress
-      - adminer
     secrets:
-      - inception_ssl.crt
-      - inception_ssl.key
+      - llethuil.42.fr.crt
+      - llethuil.42.fr.key
 
 volumes:
   db:
@@ -83,7 +82,7 @@ networks:
     driver: bridge
 
 secrets:
-    inception_ssl.crt:
-      file: ./requirements/nginx/conf/inception_ssl.crt
-    inception_ssl.key:
-      file: ./requirements/nginx/conf/inception_ssl.key
+    llethuil.42.fr.crt:
+      file: /home/llethuil/42-inception/srcs/requirements/nginx/conf/llethuil.42.fr.crt
+    llethuil.42.fr.key:
+      file: /home/llethuil/42-inception/srcs/requirements/nginx/conf/llethuil.42.fr.key

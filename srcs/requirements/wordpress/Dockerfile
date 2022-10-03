@@ -7,14 +7,13 @@ ARG		MYSQL_HOST
 
 # UPDATE & UPGRADE THE SYSTEM
 RUN		apt-get update -y \
-&&		apt-get upgrade -y \
-&&		apt-get install -y wget
+&& apt-get upgrade -y \
+&& apt-get install -y wget
 
 # INSTALL PHP
-RUN		apt-get install -y php7.4 php7.4-fpm php7.4-mysql \
-&&		service php-fpm start \
-&&		service php-fpm stop \
-&&		sed -i "s/\/run\/php\/php7.4-fpm.sock/wordpress:9000/" /etc/php/7.4/fpm/pool.d/www.conf
+RUN		apt-get install -y php-fpm php-mysql \
+&&	 	service php7.3-fpm start && service php7.3-fpm stop \
+&&		sed -i "s/\/run\/php\/php7.3-fpm.sock/wordpress:9000/" /etc/php/7.3/fpm/pool.d/www.conf
 
 # WORDPRESS
 ADD		https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
