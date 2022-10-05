@@ -43,7 +43,7 @@ RUN		cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-
 # &&		unset start end
 
 # PORTS
-EXPOSE	9000
+# EXPOSE	9000
 
 # START
 COPY	./tools/entrypoint.sh /tmp

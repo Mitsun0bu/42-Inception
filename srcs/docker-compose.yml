@@ -51,7 +51,7 @@ services:
     networks:
       - inception
     ports:
-      - "443:443"
+      - 443:443
     restart: on-failure
     depends_on:
       - wordpress
@@ -83,6 +83,6 @@ networks:
 
 secrets:
     llethuil.42.fr.crt:
-      file: /home/llethuil/42-inception/srcs/requirements/nginx/conf/llethuil.42.fr.crt
+      file: /home/llethuil/42-inception/srcs/requirements/nginx/conf/
     llethuil.42.fr.key:
-      file: /home/llethuil/42-inception/srcs/requirements/nginx/conf/llethuil.42.fr.key
+      file: /home/llethuil/42-inception/srcs/requirements/nginx/conf/
