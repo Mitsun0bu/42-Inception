@@ -69,7 +69,7 @@ fclean:
 			sudo rm -rf /home/$(USER)/data/*
 
 volumes:
-			@mkdir -p /home/$(USER)/data/site
-			@mkdir -p /home/$(USER)/data/db
+			@mkdir -p /home/$(USER)/data/WordPress
+			@mkdir -p /home/$(USER)/data/DB
 
 .PHONY:		all re up down build create ps exec start restart stop clean fclean

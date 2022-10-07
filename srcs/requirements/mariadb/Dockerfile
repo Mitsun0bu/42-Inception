@@ -20,7 +20,7 @@ RUN		service mysql start \
 		FLUSH PRIVILEGES;"
 
 # PORTS
-# EXPOSE	3306
+EXPOSE	3306
 
 # START
 ENTRYPOINT	["mysqld", "--bind-address=0.0.0.0"]

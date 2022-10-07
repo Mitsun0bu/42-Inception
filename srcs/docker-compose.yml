@@ -15,9 +15,11 @@ services:
         - MYSQL_PASSWORD
     init: true
     volumes:
-      - db:/var/lib/mysql
+      - DB:/var/lib/mysql
     networks:
       - inception
+    ports:
+      - 3306
     restart: on-failure
 
   wordpress:
@@ -33,9 +35,12 @@ services:
     env_file:
       - .env
     volumes:
-      - site:/var/www/html
+      - WordPress:/var/www/html
     networks:
       - inception
+    ports:
+      - 9000
+      - 3306
     restart: on-failure
     depends_on:
       - mariadb
@@ -47,42 +52,34 @@ services:
       context: ./requirements/nginx
     init: true
     volumes:
-      - site:/var/www/html
+      - WordPress:/var/www/html
     networks:
       - inception
     ports:
       - 443:443
+      - 9000
     restart: on-failure
     depends_on:
       - wordpress
-    secrets:
-      - llethuil.42.fr.crt
-      - llethuil.42.fr.key
 
 volumes:
-  db:
-    name: db
+  DB:
+    name: DB
     driver: local
     driver_opts:
       type: none
-      device: /home/$USER/data/db
+      device: /home/$USER/data/DB
       o: bind
 
-  site:
-    name: site
+  WordPress:
+    name: WordPress
     driver: local
     driver_opts:
       type: none
-      device: /home/$USER/data/site
+      device: /home/$USER/data/WordPress
       o: bind
 
 networks:
   inception:
     name: inception
     driver: bridge
-
-secrets:
-    llethuil.42.fr.crt:
-      file: /home/llethuil/42-inception/srcs/requirements/nginx/conf/
-    llethuil.42.fr.key:
-      file: /home/llethuil/42-inception/srcs/requirements/nginx/conf/
