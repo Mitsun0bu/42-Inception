@@ -19,7 +19,6 @@ RUN		apt-get install -y php-fpm php-mysql \
 ADD		https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
 RUN		chmod +x /usr/local/bin/wp \
 &&		mkdir -p /var/www/html/wordpress \
-# &&		cd /var/www/html/wordpress \
 &&		wp core download --path="/var/www/html/wordpress" --allow-root
 
 # CONFIGURE WORDPRESS WITH DATABASE INFOS
